@@ -123,4 +123,5 @@ data-USstates-master/
 *.csv
 /FPGA
 *.mat
+FPGA_Tro_Ez.ipynb
 
