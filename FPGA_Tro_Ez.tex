@@ -1,0 +1,1589 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+   \usepackage{fontspec, xunicode, xltxtra}
+   \setmainfont{Microsoft YaHei}
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{FPGA\_Tro\_Ez}
+    
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{electromagnetic-analysis-for-fpga_tro_ez}{%
+\subsection{Electromagnetic Analysis for
+FPGA\_Tro\_Ez}\label{electromagnetic-analysis-for-fpga_tro_ez}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{io} \PY{k}{import} \PY{n}{loadmat}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Using matplotlib backend: Qt5Agg
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{fpga\PYZus{}tro\PYZus{}ez} \PY{o}{=} \PY{n}{loadmat}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FreqEzFPGAtro.mat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{fpga\PYZus{}tro\PYZus{}ez}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} dict\_keys(['\_\_header\_\_', '\_\_version\_\_', '\_\_globals\_\_', 'FreqMatrixExtractHY'])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{data} \PY{o}{=} \PY{n}{fpga\PYZus{}tro\PYZus{}ez}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FreqMatrixExtractHY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{160}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{160}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{X}\PY{p}{,} \PY{n}{Y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{meshgrid}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+             \PY{n}{clabel} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{RdBu\PYZus{}r}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{n}{clabel}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}matplotlib\textbackslash{}pyplot.py:528: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max\_open\_warning`).
+  max\_open\_warning, RuntimeWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+            \PY{n}{clabel} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{RdYlBu\PYZus{}r}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{n}{clabel}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{./Figures2/Fig}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}81}]:} \PY{n}{freq\PYZus{}std} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{freq\PYZus{}std}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{n}{freq\PYZus{}std} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{freq\PYZus{}std}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}83}]:} \PY{n}{freq\PYZus{}std}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}83}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x3d458128>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{freq\PYZus{}std}\PY{p}{[}\PY{n}{freq\PYZus{}std}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mf}{3.3}\PY{p}{]}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{all}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:}             0
+         40   3.572578
+         42   4.535333
+         124  3.576768
+         127  3.524094
+         128  3.459161
+         208  3.692222
+         211  3.688005
+         212  3.618184
+         213  3.398591
+         218  4.882679
+         374  3.919196
+         383  3.377118
+         458  3.348732
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{n}{std\PYZus{}x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1001}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}78}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{std\PYZus{}x}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}78}]:} 1001
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}79}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{std\PYZus{}x}\PY{p}{,}\PY{n}{freq\PYZus{}std}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{width}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        NameError                                 Traceback (most recent call last)
+
+        <ipython-input-79-bbf7c8314bc4> in <module>
+          1 plt.subplots()
+    ----> 2 plt.bar(std\_x,freq\_std.values.flatten(),width=0.5)
+    
+
+        NameError: name 'freq\_std' is not defined
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{freq\PYZus{}std}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} (1001, 1)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{freq\PYZus{}std}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:} 1001
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{x\PYZus{}ticks} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{200}\PY{p}{,}\PY{l+m+mi}{1400}\PY{p}{,}\PY{l+m+mi}{200}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{x\PYZus{}ticks}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}47}]:} ([<matplotlib.axis.XTick at 0x1f8e8358>,
+           <matplotlib.axis.XTick at 0x1e833080>,
+           <matplotlib.axis.XTick at 0x22622dd8>,
+           <matplotlib.axis.XTick at 0x228d4ac8>,
+           <matplotlib.axis.XTick at 0x22a48160>,
+           <matplotlib.axis.XTick at 0x22a487b8>],
+          <a list of 6 Text xticklabel objects>)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}50}]:} (<matplotlib.figure.Figure at 0x221cc048>,
+          <matplotlib.axes.\_subplots.AxesSubplot at 0x223092e8>)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{freq\PYZus{}std}\PY{p}{,}\PY{n}{freq\PYZus{}std}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}51}]:} <matplotlib.collections.PathCollection at 0x22344b70>
+\end{Verbatim}
+            
+    \hypertarget{pcaux5b66ux4e60}{%
+\subsubsection{1.PCA学习}\label{pcaux5b66ux4e60}}
+
+    PCA的算法流程：
+假设有m个n维的样本X=\{x\(^{1}\),x\(^{2}\),x\(^{3}\),\ldots{},x\(^{m}\)\},我们要将样本数据从n维降到n\(^{'}\)维,PCA的步骤如下
+（1）首先对数据进行中心化，即x\(^{(i)}\) = x\(^{(i)}\) -
+\(\frac{5}{m}\)\(\sum_{j=1}^{n}x^{j}\);
+（2）计算样本X的协方差矩阵：\(C = \frac{1}{m}X^{T}X\);
+（3）对协方差矩阵C进行特征值分解;
+（4）将特征值由大到小排序，取出前\(n^{'}\)特征值对应的特征向量\{\(w_{1}, w_{2}, w_{3},...,w_{n^{'}}\)\}组成矩阵\(W\);
+（5）对于样本中的每一个\(x^{(i)}\)，进行变换：\(z^{(i)} = W^{T}x^{(i)}\)，组成降维后的样本集\(Z\)=\{\(z^{(1)},z^{(2)},...,z^{(n^{'})}\)\}。
+
+有时候，我们不指定降维后的\(n^{'}\)值，而是指定降维后的主成分比重阈值\(t\)，\(t\)在\((0,1)\)之间，假设协方差矩阵的n个特征值满足\(\lambda_{1}\geq\lambda_{2}\geq...\geq\lambda_{n}\),则\(n^{'}\)可通过下式计算得到:
+
+\(\frac{\sum_{i=1}^{n^{'}}\lambda_{i}}{\sum_{i=1}^{n}\lambda_{i}}\geq t\)
+
+    说明：推到公式时可能会用到的矩阵求导： \(Y=A*X-->\frac{dY}{dX}=A^{T}\)
+\(Y=X*A-->\frac{dY}{dX}=A\)
+
+    （1）PCA analysis
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{decomposition} \PY{k}{import} \PY{n}{PCA}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{data0} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{data0}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:} (160, 160)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{pca} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{pca}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{data0}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}42}]:} PCA(copy=True, iterated\_power='auto', n\_components=5, random\_state=None,
+           svd\_solver='auto', tol=0.0, whiten=False)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{pca}\PY{o}{.}\PY{n}{n\PYZus{}components}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}43}]:} 5
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n}{pca}\PY{o}{.}\PY{n}{components\PYZus{}}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}44}]:} (5, 160)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{rng} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{RandomState}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{rng}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}\PY{n}{rng}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{200}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{X}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}47}]:} (200, 2)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}48}]:} (<Figure size 640x480 with 1 Axes>,
+          <matplotlib.axes.\_subplots.AxesSubplot at 0x10a05393f28>)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}49}]:} <matplotlib.collections.PathCollection at 0x10a053e59e8>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{pca} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{pca}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}51}]:} PCA(copy=True, iterated\_power='auto', n\_components=2, random\_state=None,
+           svd\_solver='auto', tol=0.0, whiten=False)
+\end{Verbatim}
+            
+    主成分:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{n}{pca}\PY{o}{.}\PY{n}{components\PYZus{}}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}52}]:} array([[-0.94446029, -0.32862557],
+                [-0.32862557,  0.94446029]])
+\end{Verbatim}
+            
+    可解释的差异：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{n}{pca}\PY{o}{.}\PY{n}{explained\PYZus{}variance\PYZus{}}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}53}]:} array([0.7625315, 0.0184779])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{k}{def} \PY{n+nf}{draw\PYZus{}vector}\PY{p}{(}\PY{n}{v0}\PY{p}{,} \PY{n}{v1}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+             \PY{n}{ax} \PY{o}{=} \PY{n}{ax} \PY{o+ow}{or} \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}
+             \PY{n}{arrowprops} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{arrowstyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{shrinkA}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{shrinkB}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{annotate}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{v0}\PY{p}{,} \PY{n}{v1}\PY{p}{,} \PY{n}{arrowprops}\PY{o}{=}\PY{n}{arrowprops}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}55}]:} (<Figure size 640x480 with 1 Axes>,
+          <matplotlib.axes.\_subplots.AxesSubplot at 0x10a054030f0>)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}56}]:} <matplotlib.collections.PathCollection at 0x10a05441da0>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{k}{for} \PY{n}{length}\PY{p}{,} \PY{n}{vector} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{pca}\PY{o}{.}\PY{n}{explained\PYZus{}variance\PYZus{}}\PY{p}{,} \PY{n}{pca}\PY{o}{.}\PY{n}{components\PYZus{}}\PY{p}{)}\PY{p}{:}
+             \PY{n}{v} \PY{o}{=} \PY{n}{vector} \PY{o}{*} \PY{l+m+mi}{3} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{length}\PY{p}{)}
+             \PY{n}{draw\PYZus{}vector}\PY{p}{(}\PY{n}{pca}\PY{o}{.}\PY{n}{mean\PYZus{}}\PY{p}{,} \PY{n}{pca}\PY{o}{.}\PY{n}{mean\PYZus{}} \PY{o}{+} \PY{n}{v}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{equal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}57}]:} (-2.7359244314336473,
+          2.576927665141713,
+          -0.9416028834837332,
+          1.013398556195041)
+\end{Verbatim}
+            
+    下面做个PCA降维的例子，数据还是使用先前的X：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{n}{pca} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{c+c1}{\PYZsh{}一个主成分}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{n}{pca}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}59}]:} PCA(copy=True, iterated\_power='auto', n\_components=1, random\_state=None,
+           svd\_solver='auto', tol=0.0, whiten=False)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{n}{X\PYZus{}pca} \PY{o}{=} \PY{n}{pca}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{n}{X\PYZus{}pca}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}61}]:} (200, 1)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Original shape:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Transformed shape:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{X\PYZus{}pca}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Original shape: (200, 2)
+Transformed shape: (200, 1)
+
+    \end{Verbatim}
+
+    变换的数据被投影到单一维度。为了理解降维的效果，可对数据做降维的逆变换，并且与原数据仪器画出来。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{n}{X\PYZus{}new} \PY{o}{=} \PY{n}{pca}\PY{o}{.}\PY{n}{inverse\PYZus{}transform}\PY{p}{(}\PY{n}{X\PYZus{}pca}\PY{p}{)}\PY{c+c1}{\PYZsh{}降维的逆变换}
+         \PY{c+c1}{\PYZsh{}画图}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{)} \PY{c+c1}{\PYZsh{}alpha表示透明度，值越小越透明}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}new}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X\PYZus{}new}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{equal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}63}]:} (-2.7544464140632927,
+          2.6446752299637493,
+          -0.9843434017033348,
+          1.0153803384557016)
+\end{Verbatim}
+            
+    图中浅色的点是原始数据点，深色的点是降维后的数据，可以看出，沿着非主轴的信息被舍弃了，只留下最大方差的数据成分。被舍弃的那一部分信息，可以认为是数据降维后损失的信息。
+
+    （2）PCA用于手写数字识别的可视化
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}78}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{datasets} \PY{k}{import} \PY{n}{load\PYZus{}digits}  \PY{c+c1}{\PYZsh{}导入手写数据}
+         \PY{n}{digits} \PY{o}{=} \PY{n}{load\PYZus{}digits}\PY{p}{(}\PY{p}{)}
+         \PY{n}{digits}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}78}]:} (1797, 64)
+\end{Verbatim}
+            
+    由于这些数字都是以图片的形式，像素8*8存储的，因此它是64维的。我们将它投影到2维看看效果如何。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{n}{pca} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{projected} \PY{o}{=} \PY{n}{pca}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{digits}\PY{o}{.}\PY{n}{data}\PY{p}{)}\PY{c+c1}{\PYZsh{}fit()方法和transform()方面合并在一起了}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{digits}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{projected}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(1797, 64)
+(1797, 2)
+
+    \end{Verbatim}
+
+    然后画出每个点的前两个主成分，以更好地了解数据。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}81}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{projected}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{projected}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{digits}\PY{o}{.}\PY{n}{target}\PY{p}{,} \PY{n}{edgecolors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{none}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} 
+                     \PY{n}{cmap}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{get\PYZus{}cmap}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Spectral}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{component 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{component 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}81}]:} <matplotlib.colorbar.Colorbar at 0x10a09995358>
+\end{Verbatim}
+            
+    如何选择主成分的数量呢？可以使用``累计方差贡献率''来确定主成分的数量。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}89}]:} \PY{n}{pca} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{digits}\PY{o}{.}\PY{n}{data}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{n}{pca}\PY{o}{.}\PY{n}{explained\PYZus{}variance\PYZus{}ratio\PYZus{}}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}可解释方差贡献率的累计和}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{number of components}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cumulative explained variance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}89}]:} Text(0,0.5,'cumulative explained variance')
+\end{Verbatim}
+            
+    这个曲线量化了在前N个主成分中包含多少总的64维的方差。从图中可以看出，前10个主成分基本上包含了75\%左右的方差。
+当选择到50个成分时，基本就包含了100\%的方差。
+从图中我们也知道，上述2维的PCA损失大部分的信息，要保持90\%以上的方差，至少选择20个主成分。
+
+    （3）将PCA用于噪声过滤
+
+    通常情况下，任何成分的方差都远大于噪声的方差。因此，如果只用主成分去重构数据（比如图像等），那么应该能够选择性去除噪声的。
+首先，我们画出几个无噪声的手写数字。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{k}{def} \PY{n+nf}{plot\PYZus{}digits}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{p}{:}
+             \PY{n}{fig}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,} \PY{n}{subplot\PYZus{}kw}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{xticks}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yticks}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{[}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{,}
+                                     \PY{n}{gridspec\PYZus{}kw}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{hspace}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{n}{wspace}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{)}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{ax} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{axes}\PY{o}{.}\PY{n}{flat}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{ax}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{binary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{interpolation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nearest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{clim}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{16}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plot\PYZus{}digits}\PY{p}{(}\PY{n}{digits}\PY{o}{.}\PY{n}{data}\PY{p}{)}
+\end{Verbatim}
+
+    给数据添加噪声，重新画图。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{42}\PY{p}{)}
+         \PY{n}{noisy\PYZus{}data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{n}{digits}\PY{o}{.}\PY{n}{data}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{plot\PYZus{}digits}\PY{p}{(}\PY{n}{noisy\PYZus{}data}\PY{p}{)}
+\end{Verbatim}
+
+    然后用噪声数据训练PCA，投影后保留50\%的方差。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{n}{pca} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{l+m+mf}{0.75}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{noisy\PYZus{}data}\PY{p}{)}
+         \PY{n}{pca}\PY{o}{.}\PY{n}{n\PYZus{}components\PYZus{}}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}72}]:} 31
+\end{Verbatim}
+            
+    可以看出，保留的50\%的方差对应12个主成分，然后利用逆变换重构手写数字。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}110}]:} \PY{n}{components} \PY{o}{=} \PY{n}{pca}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{noisy\PYZus{}data}\PY{p}{)}
+          \PY{n}{filtered\PYZus{}data} \PY{o}{=} \PY{n}{pca}\PY{o}{.}\PY{n}{inverse\PYZus{}transform}\PY{p}{(}\PY{n}{components}\PY{p}{)}
+          \PY{n}{plot\PYZus{}digits}\PY{p}{(}\PY{n}{filtered\PYZus{}data}\PY{p}{)}
+\end{Verbatim}
+
+    (4)PCA用于辅助k-means进行聚类分析
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}111}]:} \PY{n}{data}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}111}]:} (1001, 160, 160)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}112}]:} \PY{n}{data0}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}112}]:} (160, 160)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}125}]:} \PY{n}{pca} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+m+mi}{43}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{cumsum}\PY{p}{(}\PY{n}{pca}\PY{o}{.}\PY{n}{explained\PYZus{}variance\PYZus{}ratio\PYZus{}}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}可解释方差贡献率的累计和}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{number of components}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cumulative explained variance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FPGA\PYZus{}Tro\PYZus{}Ez: variance ratio of frequency}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}125}]:} Text(0.5,1,'FPGA\_Tro\_Ez: variance ratio of frequency')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}123}]:} \PY{n}{pca} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{l+m+mf}{0.999999}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+m+mi}{43}\PY{p}{]}\PY{p}{)}
+          \PY{n}{pca}\PY{o}{.}\PY{n}{n\PYZus{}components\PYZus{}}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}123}]:} 80
+\end{Verbatim}
+            
+    数据集中的方差验证
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}134}]:} \PY{n}{d0\PYZus{}flat} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}
+          \PY{n}{d0\PYZus{}mean} \PY{o}{=} \PY{n}{d0\PYZus{}flat}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{d0\PYZus{}mean}\PY{p}{)}
+          \PY{n+nb}{sum}\PY{p}{(}\PY{n}{d0\PYZus{}flat}\PY{p}{)} \PY{o}{/} \PY{n+nb}{len}\PY{p}{(}\PY{n}{d0\PYZus{}flat}\PY{p}{)}
+          
+          \PY{n}{s} \PY{o}{=} \PY{l+m+mi}{0}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{d0\PYZus{}flat}\PY{p}{:}
+              \PY{n}{s} \PY{o}{=} \PY{n}{s} \PY{o}{+} \PY{p}{(}\PY{n}{i} \PY{o}{\PYZhy{}} \PY{n}{d0\PYZus{}mean}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+          
+          \PY{n}{d0\PYZus{}std} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{s}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{d0\PYZus{}flat}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{d0\PYZus{}std}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{d0\PYZus{}flat}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+              
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+-42.746578730705465
+1.2621245419701919
+1.262124541970186
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}168}]:} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{)}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{+}\PY{n}{i}\PY{p}{,}\PY{n}{data}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1 1.2621245419701863
+2 3.1853907810845747
+3 1.0737758660333292
+4 3.165710803915547
+5 1.0192067022425138
+6 3.2278245356025956
+7 1.0993517537151964
+8 3.180998063116527
+9 1.0575961715900501
+10 3.163043733504071
+11 1.0170475021968557
+12 3.2111906817310523
+13 1.1277354610516404
+14 3.2144007820347786
+15 1.011385910667333
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}170}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+m+mi}{41}\PY{p}{]}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+m+mi}{42}\PY{p}{]}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+3.220667595865842
+4.535332530024808
+
+    \end{Verbatim}
+
+    \hypertarget{k-meansux5b66ux4e60}{%
+\subparagraph{2.K-Means学习}\label{k-meansux5b66ux4e60}}
+
+    k-means算法在不带标签的多维数据中寻找确定数量的簇，它要符合以下两个假设：
+（1）簇的中心点是属于该簇中各坐标点的算数平均值；
+（2）簇中各点到该簇中心点比到其它簇的中心点的距离最短。 
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{datasets}\PY{n+nn}{.}\PY{n+nn}{samples\PYZus{}generator} \PY{k}{import} \PY{n}{make\PYZus{}blobs}
+         \PY{n}{X}\PY{p}{,} \PY{n}{y\PYZus{}true} \PY{o}{=} \PY{n}{make\PYZus{}blobs}\PY{p}{(}\PY{n}{n\PYZus{}samples}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{,} \PY{n}{centers}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{cluster\PYZus{}std}\PY{o}{=}\PY{l+m+mf}{0.6}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} <matplotlib.collections.PathCollection at 0x12ec4ec67b8>
+\end{Verbatim}
+            
+    
+
+    可以看出，图中可分为4个簇。下面使用k-means算法来进行聚类。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cluster} \PY{k}{import} \PY{n}{KMeans}
+         \PY{n}{kmean} \PY{o}{=} \PY{n}{KMeans}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{kmean}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         \PY{n}{y\PYZus{}means} \PY{o}{=} \PY{n}{kmean}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{每个点的聚类结果:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{y\PYZus{}means}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{簇的中心点:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{kmean}\PY{o}{.}\PY{n}{cluster\PYZus{}centers\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+每个点的聚类结果:
+ [0 2 1 2 0 0 3 1 2 2 3 2 1 2 0 1 1 0 3 3 0 0 1 3 3 1 0 1 3 1 2 2 1 2 2 2 2
+ 2 3 0 1 3 1 1 3 3 2 3 2 0 3 0 2 0 0 3 2 3 2 0 2 1 2 3 3 3 2 0 2 3 1 3 2 3
+ 3 2 3 1 0 2 0 1 0 0 2 1 0 1 2 2 1 0 2 3 3 1 0 0 1 3 2 0 2 0 1 0 0 1 2 1 3
+ 3 0 2 0 1 2 0 0 1 3 0 3 0 0 0 0 3 0 3 2 3 3 0 2 3 3 2 1 2 2 3 1 3 1 3 2 1
+ 2 2 2 1 2 1 0 3 2 3 0 1 2 1 1 0 1 3 3 1 0 1 1 2 0 1 3 2 0 0 1 3 0 1 3 3 1
+ 1 1 1 0 2 1 3 1 1 3 3 3 1 3 2 1 3 0 3 1 2 3 2 1 2 1 3 1 1 2 3 3 0 0 1 2 0
+ 0 3 0 3 1 2 2 1 1 2 1 0 3 1 0 3 2 3 0 1 0 2 2 2 2 3 3 2 1 3 0 1 3 3 3 0 0
+ 2 1 1 3 0 2 3 1 2 1 0 0 3 3 1 0 0 0 1 2 2 0 0 1 0 0 0 2 3 2 1 0 0 2 2 2 0
+ 0 1 2 3]
+
+簇的中心点:
+ [[ 1.98258281  0.86771314]
+ [ 0.94973532  4.41906906]
+ [-1.37324398  7.75368871]
+ [-1.58438467  2.83081263]]
+
+    \end{Verbatim}
+
+    我们将原始数据分别以不同的颜色画出来，然后画出K-means算法算出的簇中心点。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{y\PYZus{}means}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{viridis}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{c+c1}{\PYZsh{}画出原始数据}
+         \PY{n}{centers} \PY{o}{=} \PY{n}{kmean}\PY{o}{.}\PY{n}{cluster\PYZus{}centers\PYZus{}} \PY{c+c1}{\PYZsh{}获取簇中心点}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{centers}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{centers}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s} \PY{o}{=} \PY{l+m+mi}{200}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.6}\PY{p}{)}\PY{c+c1}{\PYZsh{}画出簇中心点}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} <matplotlib.collections.PathCollection at 0x1ebc74a8>
+\end{Verbatim}
+            
+    
+
+    k-means算法是如何快速地找到簇中心点的呢，毕竟簇中心点的分配组合方案会随着数据的增加而呈现指数级的增长，如果k-means算法逐个穷举这些组合方案将会耗费大量的时间。好在k-means可以采用\textbf{\emph{期望最大化}}（expectation
+maximization,E-M）规避穷举。下面简单介绍期望最大化算法。E-M算法的步骤：
+（1）猜测一些簇中心点。 （2）重复一下步骤直至收敛：   
+a.期望步骤（E-step）：将点分配距离其最近的中心点   
+b.最大化步骤（M-step）：将簇中心点设置为该簇中所有点坐标的平均值
+
+下面简单实现k-means算法:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{pairwise\PYZus{}distances\PYZus{}argmin}
+         \PY{k}{def} \PY{n+nf}{find\PYZus{}cluster}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{n\PYZus{}clusters}\PY{p}{,} \PY{n}{rseed}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    描述：对X进行聚类。}
+         \PY{l+s+sd}{    参数：}
+         \PY{l+s+sd}{        X：array\PYZhy{}like，通常是(n\PYZus{}samples, n\PYZus{}features)的数组}
+         \PY{l+s+sd}{        n\PYZus{}clusters:int类型，要聚成几类}
+         \PY{l+s+sd}{        rseed：int类型，用于设置随机种子}
+         \PY{l+s+sd}{    返回值：}
+         \PY{l+s+sd}{        centers：所有簇的中心点}
+         \PY{l+s+sd}{        labels：X中每个点所属的那个簇的索引}
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{c+c1}{\PYZsh{}随机选择簇中心}
+             \PY{n}{rng} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{RandomState}\PY{p}{(}\PY{n}{rseed}\PY{p}{)}
+             \PY{n}{i} \PY{o}{=} \PY{n}{rng}\PY{o}{.}\PY{n}{permutation}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{n}{n\PYZus{}clusters}\PY{p}{]} \PY{c+c1}{\PYZsh{}permutation()用于随机搅乱np.arange(X.shape[0])}
+             \PY{n}{centers} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+             
+             \PY{k}{while} \PY{k+kc}{True}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{}对于X中的每一行数据构成的点，从centers中找到距离该点最近的点}
+                 \PY{n}{labels} \PY{o}{=} \PY{n}{pairwise\PYZus{}distances\PYZus{}argmin}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{centers}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{}print(\PYZdq{}labels\PYZsq{}s shape:\PYZdq{}, labels.shape)}
+                 \PY{c+c1}{\PYZsh{}print(labels)}
+                 \PY{c+c1}{\PYZsh{}更新簇中心：计算每一个簇中所有点的平均值，更新该簇的中心点}
+                 \PY{n}{new\PYZus{}centers} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{X}\PY{p}{[}\PY{n}{labels} \PY{o}{==} \PY{n}{j}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)} \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{}print(X[labels == i])}
+                 \PY{c+c1}{\PYZsh{}检查是否收敛}
+                 \PY{k}{if} \PY{n}{np}\PY{o}{.}\PY{n}{all}\PY{p}{(}\PY{n}{centers} \PY{o}{==} \PY{n}{new\PYZus{}centers}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{break}
+                 \PY{n}{centers} \PY{o}{=} \PY{n}{new\PYZus{}centers}
+                 
+             \PY{k}{return} \PY{n}{centers}\PY{p}{,}\PY{n}{labels}
+         
+         
+                
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{n\PYZus{}clusters} \PY{o}{=} \PY{l+m+mi}{6}
+         \PY{n}{X}\PY{p}{,} \PY{n}{y\PYZus{}true} \PY{o}{=} \PY{n}{make\PYZus{}blobs}\PY{p}{(}\PY{n}{n\PYZus{}samples}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{,} \PY{n}{centers}\PY{o}{=}\PY{n}{n\PYZus{}clusters}\PY{p}{,} \PY{n}{cluster\PYZus{}std}\PY{o}{=}\PY{l+m+mf}{0.6}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}自己实现的k\PYZhy{}means算法}
+         \PY{n}{centers}\PY{p}{,} \PY{n}{labels} \PY{o}{=} \PY{n}{find\PYZus{}cluster}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{n\PYZus{}clusters}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{labels}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{viridis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{centers}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{centers}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{380}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.6}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{find\PYZus{}cluster()}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{kmeans} \PY{o}{=} \PY{n}{KMeans}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{n}{n\PYZus{}clusters}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{fit\PYZus{}predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{labels}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{viridis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{centers}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{centers}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{380}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.6}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{KMeans class:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}42}]:} Text(0.5,1,'KMeans class:')
+\end{Verbatim}
+            
+    上述用find\_cluster()方法实现的k-means算法对于不同的簇中心初始值可能不会收敛到全局最优解，因此需要尝试多种不同的簇中心初始值才有可能达到全局最优解。在sklearn.clusters中的KMeans构造函数中，可以通过设置n\_init参数选择需要尝试多少次簇中心初始值，默认是10。
+\textbf{注意}：k-means算法的缺点是必须认为地指定簇的数量算法才能够去很好聚类。
+
+    \hypertarget{k-meansux7b97ux6cd5ux53eaux80fdux786eux5b9aux7ebfux6027ux805aux7c7bux8fb9ux754c}{%
+\paragraph{k-means算法只能确定线性聚类边界}\label{k-meansux7b97ux6cd5ux53eaux80fdux786eux5b9aux7ebfux6027ux805aux7c7bux8fb9ux754c}}
+
+    k-means的基本模型假设是：与其它簇的中心相比，数据点更加接近自己的簇中心点，因此，如果簇中心点呈现非线性的复杂形状时，k-means算法经常不起作用。比如：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{datasets} \PY{k}{import}  \PY{n}{make\PYZus{}moons}
+         \PY{n}{X}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{make\PYZus{}moons}\PY{p}{(}\PY{n}{n\PYZus{}samples}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{,} \PY{n}{noise}\PY{o}{=}\PY{l+m+mf}{0.05}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)} \PY{c+c1}{\PYZsh{}noise是要添加到数据的高斯噪声标准差}
+         \PY{n}{labels} \PY{o}{=} \PY{n}{KMeans}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{fit\PYZus{}predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{labels}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{viridis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} <matplotlib.collections.PathCollection at 0x12ecb6b4a90>
+\end{Verbatim}
+            
+    
+
+    解决的方法是通过核变换将数据投影到更高维的空间，从而使线性分离成为可能。这样就可以让k-means算法也可以出来非线性的边界问题。
+这种核k-means算法在sklearn的SpectralCulstering评估器中实现，它使用最近邻图来计算数据的高维表示，然后用k-means算法分配标签进行聚类。如下：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cluster}  \PY{k}{import} \PY{n}{SpectralClustering}
+         \PY{n}{model} \PY{o}{=} \PY{n}{SpectralClustering}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{affinity}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nearest\PYZus{}neighbors}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{assign\PYZus{}labels}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{kmeans}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{labels} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{fit\PYZus{}predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{labels}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{viridis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}sklearn\textbackslash{}manifold\textbackslash{}spectral\_embedding\_.py:234: UserWarning: Graph is not fully connected, spectral embedding may not work as expected.
+  warnings.warn("Graph is not fully connected, spectral embedding"
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} <matplotlib.collections.PathCollection at 0x200d62b0>
+\end{Verbatim}
+            
+    
+
+    从上图可以看出，通过核变换，k-means就可以适应非线性边界的情况了。
+
+    由于k-means算法每次更新簇中心都要获取所有数据，当数据量比较大，k-means会很慢。解决的方法是``每次迭代更新只使用数据集的一个子集来更新簇中心''这就是批处理的k-means算法的核心思想。该算法在sklearn.cluster.MiniBatchKMeans中实现，该算法的接口和标准的KMeans接口相同。
+
+    \hypertarget{ux7528k-meansux8bc6ux522bux624bux5199ux6570ux5b57}{%
+\subsubsection{用k-means识别手写数字}\label{ux7528k-meansux8bc6ux522bux624bux5199ux6570ux5b57}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{datasets} \PY{k}{import} \PY{n}{load\PYZus{}digits}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cluster} \PY{k}{import} \PY{n}{KMeans}
+         \PY{n}{digits} \PY{o}{=} \PY{n}{load\PYZus{}digits}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{digits}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(1797, 64)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{kmeans} \PY{o}{=} \PY{n}{KMeans}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{clusters} \PY{o}{=} \PY{n}{kmeans}\PY{o}{.}\PY{n}{fit\PYZus{}predict}\PY{p}{(}\PY{n}{digits}\PY{o}{.}\PY{n}{data}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{clusters}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{kmeans}\PY{o}{.}\PY{n}{cluster\PYZus{}centers\PYZus{}}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{c+c1}{\PYZsh{}簇中心点}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{kmeans}\PY{o}{.}\PY{n}{cluster\PYZus{}centers\PYZus{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(1797,)
+(10, 64)
+<class 'numpy.ndarray'>
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+         \PY{n}{centers} \PY{o}{=} \PY{n}{kmeans}\PY{o}{.}\PY{n}{cluster\PYZus{}centers\PYZus{}}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}
+         \PY{k}{for} \PY{n}{axi}\PY{p}{,} \PY{n}{center} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{ax}\PY{o}{.}\PY{n}{flat}\PY{p}{,} \PY{n}{centers}\PY{p}{)}\PY{p}{:}
+             \PY{n}{axi}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{xticks}\PY{o}{=}\PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{n}{yticks}\PY{o}{=}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+             \PY{n}{axi}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{center}\PY{p}{,} \PY{n}{interpolation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nearest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{binary}\PY{p}{)}
+\end{Verbatim}
+
+    
+
+    从图中可以发现，即使没有标签，k-means也能找到可辨识的数字中心。但是1和8例外。同时由于k-means算法不知道簇的真实标签，因此0\textasciitilde{}9的数字不是顺序排列的。我们可以将学到的簇标签与真实的标签进行匹配，从而解决这个问题。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import}  \PY{n}{mode}
+         \PY{n}{labels} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros\PYZus{}like}\PY{p}{(}\PY{n}{clusters}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+             \PY{n}{mask} \PY{o}{=} \PY{p}{(}\PY{n}{clusters} \PY{o}{==} \PY{n}{i}\PY{p}{)}
+             \PY{n}{labels}\PY{p}{[}\PY{n}{mask}\PY{p}{]} \PY{o}{=} \PY{n}{mode}\PY{p}{(}\PY{n}{digits}\PY{o}{.}\PY{n}{target}\PY{p}{[}\PY{n}{mask}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{c+c1}{\PYZsh{}mode用来计算众数}
+\end{Verbatim}
+
+    然后使用sklearn.metrics的accuracy\_score()方法评估k-means识别手写数字的准确性。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{accuracy\PYZus{}score}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{digits}\PY{o}{.}\PY{n}{target}\PY{p}{,} \PY{n}{labels}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.7935447968836951
+
+    \end{Verbatim}
+
+    画出混淆矩阵，直观地查看算法的不足之处。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{confusion\PYZus{}matrix}
+         \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{mat} \PY{o}{=} \PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{digits}\PY{o}{.}\PY{n}{target}\PY{p}{,} \PY{n}{labels}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{mat}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{square}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{annot}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{fmt}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cbar}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{xticklabels}\PY{o}{=}\PY{n}{digits}\PY{o}{.}\PY{n}{target\PYZus{}names}\PY{p}{,}
+                     \PY{n}{yticklabels}\PY{o}{=}\PY{n}{digits}\PY{o}{.}\PY{n}{target\PYZus{}names}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{True Label}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Predicted Label}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:} Text(110.45000000000003, 0.5, 'Predicted Label')
+\end{Verbatim}
+            
+    
+
+    可以看出，混淆的地方主要是1和8，5也有轻量的混淆。可以看出，在不需要标签的情况下，k-means算法介意构成一个数字分类器。此外，我们可以引入t-SNE算法（t-分布邻域嵌入算法），该算法是一个非线性嵌入算法，十分适合保留簇中的数据点。
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{manifold} \PY{k}{import} \PY{n}{TSNE}
+         \PY{c+c1}{\PYZsh{}投影数据}
+         \PY{n}{tsne} \PY{o}{=} \PY{n}{TSNE}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{init}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pca}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{c+c1}{\PYZsh{}n\PYZus{}components:嵌入的空间的维度；init：嵌入空间的初始化}
+         \PY{n}{digits\PYZus{}projection} \PY{o}{=} \PY{n}{tsne}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{digits}\PY{o}{.}\PY{n}{data}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}再使用k\PYZhy{}means算法聚类}
+         \PY{n}{kmeans} \PY{o}{=} \PY{n}{KMeans}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{clusters} \PY{o}{=} \PY{n}{kmeans}\PY{o}{.}\PY{n}{fit\PYZus{}predict}\PY{p}{(}\PY{n}{digits\PYZus{}projection}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}再排列标签}
+         \PY{n}{labels} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros\PYZus{}like}\PY{p}{(}\PY{n}{clusters}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+             \PY{n}{mask} \PY{o}{=} \PY{p}{(}\PY{n}{clusters} \PY{o}{==} \PY{n}{i}\PY{p}{)}
+             \PY{n}{labels}\PY{p}{[}\PY{n}{mask}\PY{p}{]} \PY{o}{=} \PY{n}{mode}\PY{p}{(}\PY{n}{digits}\PY{o}{.}\PY{n}{target}\PY{p}{[}\PY{n}{mask}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}计算准确度}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{digits}\PY{o}{.}\PY{n}{target}\PY{p}{,} \PY{n}{labels}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.9398998330550918
+
+    \end{Verbatim}
+
+    可以看出，同样在没有标签的情况下，此时的准确率达到了94\%。
+
+    \hypertarget{ux7535ux78c1ux573aux6570ux636eux5206ux6790ux4e0eux9a8cux8bc1}{%
+\subsubsection{3.电磁场数据分析与验证}\label{ux7535ux78c1ux573aux6570ux636eux5206ux6790ux4e0eux9a8cux8bc1}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{fpga\PYZus{}hy\PYZus{}data\PYZus{}n9030a} \PY{o}{=} \PY{n}{loadmat}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FPGA/N9030\PYZus{}1Hy.mat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{fpga\PYZus{}hy\PYZus{}data\PYZus{}n9030a}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} dict\_keys(['\_\_header\_\_', '\_\_version\_\_', '\_\_globals\_\_', 'YStrucTMP'])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{hy\PYZus{}n9030a} \PY{o}{=} \PY{n}{fpga\PYZus{}hy\PYZus{}data\PYZus{}n9030a}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YStrucTMP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{hy\PYZus{}n9030a}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{hy\PYZus{}n9030a}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(25600, 1001)
+-101145.53464781001
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{hy\PYZus{}n9030a} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{hy\PYZus{}n9030a}\PY{p}{)}
+         \PY{n}{cols} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{hy\PYZus{}n9030a}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{values}\PY{p}{:}
+             \PY{n}{cols}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{hy\PYZus{}n9030a}\PY{o}{.}\PY{n}{columns} \PY{o}{=}\PY{n}{cols}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{hy\PYZus{}n9030a}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['f1' 'f2' 'f3' {\ldots} 'f999' 'f1000' 'f1001']
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{hy\PYZus{}std\PYZus{}n9030a} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{hy\PYZus{}n9030a}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{values}\PY{p}{:}
+             \PY{n}{hy\PYZus{}std\PYZus{}n9030a}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{hy\PYZus{}n9030a}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{hy\PYZus{}std\PYZus{}n9030a} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{hy\PYZus{}std\PYZus{}n9030a}\PY{p}{)}
+         \PY{n}{hy\PYZus{}std\PYZus{}n9030a}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unshuffled data of N9030A}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}    
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:} Text(0.5, 1.0, 'unshuffled data of N9030A')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{fpga\PYZus{}hy\PYZus{}data} \PY{o}{=} \PY{n}{loadmat}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FPGA/FreqHYFPGAtro.mat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{fpga\PYZus{}hy\PYZus{}data}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} dict\_keys(['\_\_header\_\_', '\_\_version\_\_', '\_\_globals\_\_', 'FreqMatrixExtractHY'])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{hy} \PY{o}{=} \PY{n}{fpga\PYZus{}hy\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FreqMatrixExtractHY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{hy}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{hy}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(1001, 160, 160)
+-1040467.4403513799
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{hy\PYZus{}std} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{hy}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{hy\PYZus{}std}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{hy}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{hy\PYZus{}std} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{hy\PYZus{}std}\PY{p}{)}
+         \PY{n}{hy\PYZus{}std}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{shuffled data of N9030A}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}35}]:} Text(0.5, 1.0, 'shuffled data of N9030A')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{FreqMatrixExtract} \PY{o}{=} \PY{n}{loadmat}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FPGA/FreqEzFPGAtro.mat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{FreqMatrixExtract}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{FreqMatrixExtract} \PY{o}{=} \PY{n}{FreqMatrixExtract}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FreqMatrixExtractHY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+dict\_keys(['\_\_header\_\_', '\_\_version\_\_', '\_\_globals\_\_', 'FreqMatrixExtractHY'])
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{FreqMatrixExtract}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n}{freq1\PYZus{}data} \PY{o}{=} \PY{n}{FreqMatrixExtract}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{}print(freq1\PYZus{}data)}
+         \PY{n}{freq1\PYZus{}data}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(1001, 160, 160)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}38}]:} 0.0237759175676074
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{FreqMatrixExtract}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:} array([-43.89454902, -43.89454902, -44.339358  , -44.339358  ,
+                -43.99094365])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{std\PYZus{}x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1200}\PY{p}{,}\PY{l+m+mi}{1001}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{std\PYZus{}x}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[   0.     1.2    2.4 {\ldots} 1197.6 1198.8 1200. ]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{n}{freq1\PYZus{}data\PYZus{}std} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{FreqMatrixExtract}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{freq1\PYZus{}data\PYZus{}std}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{FreqMatrixExtract}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{c+c1}{\PYZsh{}先对行求std，所得的结果再求std}
+         \PY{c+c1}{\PYZsh{}print(freq1\PYZus{}data\PYZus{}std)}
+         \PY{n}{freq1\PYZus{}data\PYZus{}std} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{freq1\PYZus{}data\PYZus{}std}\PY{p}{)}
+         
+         
+         \PY{n}{freq1\PYZus{}data\PYZus{}std}\PY{o}{.}\PY{n}{index} \PY{o}{=} \PY{n}{std\PYZus{}x}
+         \PY{c+c1}{\PYZsh{}print(freq1\PYZus{}data\PYZus{}std)}
+         \PY{n}{freq1\PYZus{}data\PYZus{}std}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{std\PYZus{}x}\PY{p}{,}\PY{n}{freq1\PYZus{}data\PYZus{}std}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}59}]:} <BarContainer object of 1001 artists>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}124}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{freq1\PYZus{}data\PYZus{}std}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[0.02377592 0.21905074 0.08994633 {\ldots} 0.05702146 0.25777524 0.53199141]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}174}]:} \PY{n}{freq1\PYZus{}data\PYZus{}std}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}174}]:}                0
+          0.0     0.023776
+          1.2     0.219051
+          2.4     0.089946
+          3.6     0.195654
+          4.8     0.061209
+          6.0     0.232395
+          7.2     0.107463
+          8.4     0.226238
+          9.6     0.077044
+          10.8    0.207003
+          12.0    0.062888
+          13.2    0.243771
+          14.4    0.143535
+          15.6    0.208904
+          16.8    0.069883
+          18.0    0.223333
+          19.2    0.058234
+          20.4    0.186894
+          21.6    0.157063
+          22.8    0.188482
+          24.0    0.068580
+          25.2    0.230049
+          26.4    0.146119
+          27.6    0.212680
+          28.8    0.054851
+          30.0    0.215191
+          31.2    0.053122
+          32.4    0.203645
+          33.6    0.117504
+          34.8    0.204770
+          {\ldots}          {\ldots}
+          1165.2  0.197563
+          1166.4  0.053161
+          1167.6  0.206206
+          1168.8  0.056269
+          1170.0  0.234440
+          1171.2  0.053033
+          1172.4  0.216632
+          1173.6  0.060890
+          1174.8  0.211054
+          1176.0  0.055328
+          1177.2  0.229669
+          1178.4  0.052745
+          1179.6  0.199516
+          1180.8  0.063531
+          1182.0  0.228999
+          1183.2  0.058602
+          1184.4  0.194195
+          1185.6  0.052512
+          1186.8  0.230541
+          1188.0  0.058611
+          1189.2  0.213838
+          1190.4  0.052587
+          1191.6  0.207060
+          1192.8  0.054653
+          1194.0  0.221948
+          1195.2  0.060996
+          1196.4  0.184177
+          1197.6  0.057021
+          1198.8  0.257775
+          1200.0  0.531991
+          
+          [1001 rows x 1 columns]
+\end{Verbatim}
+            
+    
+
+    （1）对N9030\_1Ez的原始数据进行重排验证
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{ez\PYZus{}fpga} \PY{o}{=} \PY{n}{loadmat}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N9030\PYZus{}1Ez.mat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n}{ez\PYZus{}fpga\PYZus{}data} \PY{o}{=} \PY{n}{ez\PYZus{}fpga}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ZStrucTMP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{ez\PYZus{}fpga\PYZus{}data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}45}]:} array([-41.74544771, -41.49575077, -41.49226662, {\ldots}, -39.21595956,
+                -39.16485879, -39.20550713])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n+nb}{type}\PY{p}{(}\PY{n}{ez\PYZus{}fpga\PYZus{}data}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}46}]:} numpy.ndarray
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n}{ind} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{160}\PY{p}{,}\PY{l+m+mi}{25600}\PY{p}{,}\PY{l+m+mi}{160}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{ez\PYZus{}fpga\PYZus{}data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}48}]:} array([-41.74544771, -41.49575077, -41.49226662, {\ldots}, -39.21595956,
+                -39.16485879, -39.20550713])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{ez\PYZus{}arr} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros\PYZus{}like}\PY{p}{(}\PY{n}{FreqMatrixExtract}\PY{p}{)}
+         \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{ez\PYZus{}fpga\PYZus{}data}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{n}{arr\PYZus{}list} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{hsplit}\PY{p}{(}\PY{n}{ez\PYZus{}fpga\PYZus{}data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{col}\PY{p}{]}\PY{p}{,}\PY{n}{ind}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{arr\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{i} \PY{o}{\PYZpc{}} \PY{l+m+mi}{2} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{:}
+                     \PY{n}{arr\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{arr\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{n}{ez\PYZus{}arr}\PY{p}{[}\PY{n}{col}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{arr\PYZus{}list}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{c+c1}{\PYZsh{}print(ez\PYZus{}arr.shape)}
+         \PY{c+c1}{\PYZsh{}print(ez\PYZus{}arr[0])}
+         \PY{n}{std\PYZus{}x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1200}\PY{p}{,}\PY{l+m+mi}{1001}\PY{p}{)}
+         \PY{n}{ez\PYZus{}arr\PYZus{}std} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{ez\PYZus{}arr}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{ez\PYZus{}arr\PYZus{}std}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{ez\PYZus{}arr}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{c+c1}{\PYZsh{}先对行求std，所得的结果再求std}
+         \PY{c+c1}{\PYZsh{}print(freq1\PYZus{}data\PYZus{}std)}
+         \PY{n}{ez\PYZus{}arr\PYZus{}std} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{ez\PYZus{}arr\PYZus{}std}\PY{p}{)}
+         
+         
+         \PY{n}{ez\PYZus{}arr\PYZus{}std}\PY{o}{.}\PY{n}{index} \PY{o}{=} \PY{n}{std\PYZus{}x}
+         \PY{c+c1}{\PYZsh{}print(freq1\PYZus{}data\PYZus{}std)}
+         \PY{n}{ez\PYZus{}arr\PYZus{}std}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}print(ez\PYZus{}arr\PYZus{}std[:11],\PYZsq{}\PYZbs{}n\PYZbs{}n\PYZsq{})}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{std\PYZus{}x}\PY{p}{,}\PY{n}{ez\PYZus{}arr\PYZus{}std}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}print(ez\PYZus{}arr\PYZus{}std.values.ravel()[:10],\PYZsq{}\PYZbs{}n\PYZbs{}n\PYZsq{})}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}61}]:} <BarContainer object of 1001 artists>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{ez\PYZus{}arr\PYZus{}std}\PY{p}{[}\PY{n}{ez\PYZus{}arr\PYZus{}std}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{]}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}51}]:} 8
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{arr\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             
+             \PY{k}{if} \PY{n}{i} \PY{o}{\PYZpc{}} \PY{l+m+mi}{2} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{n}{arr\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{arr\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{arr\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{:}\PY{p}{]}        
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}52}]:} array([-87.35843071, -87.58490003, -89.42452778, -88.44548346,
+                -89.99128178])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{n}{arr\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{arr\PYZus{}list}\PY{p}{)}
+         \PY{n}{arr\PYZus{}df}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}53}]:} (160, 160)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{n}{arr\PYZus{}df}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}63}]:} 0.3995000541540069
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

@@ -1,0 +1,1904 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    \usepackage{fontspec, xunicode, xltxtra}
+    \setmainfont{Microsoft YaHei}
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{DataAnalysisLearning-Data Loading,Storage, and File Formeats}
+    
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} *\PYZhy{}* coding: utf\PYZhy{}8 \PYZhy{}*\PYZhy{}}
+        \PY{c+c1}{\PYZsh{} @author: tongzi}
+        \PY{c+c1}{\PYZsh{} @description: Data Loading, Storage, and File Formats in pandas}
+        \PY{c+c1}{\PYZsh{} @created date: 2019/07/02}
+        \PY{c+c1}{\PYZsh{} @last modification: 2019/07/02}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+\end{Verbatim}
+
+    \hypertarget{ux4ee5ux6587ux672cux5f62ux5f0fux8bfbux5199ux6570ux636e}{%
+\subsubsection{以文本形式读写数据}\label{ux4ee5ux6587ux672cux5f62ux5f0fux8bfbux5199ux6570ux636e}}
+
+Reading and Writing Data in Text Format
+
+    pandas features a number of functions for reading tabular data as a
+DataFrame object. The table below summaries some of them, though
+\emph{read\_csv}() and \emph{read\_table}() are likely the ones we'll
+use the most.
+
+    \includegraphics{attachment:image.png}
+\includegraphics{attachment:image.png}
+
+    Some of these functions, like \emph{pd.read\_csv}(), perform \emph{type
+inference} (类型推导), because the column data types are not part of the
+data format. That means we don't have to specify which columns are
+numeric, boolean, integer, or string.
+
+    Since this is comma-delimited, we can use \emph{read\_csv}() to read it
+into a DataFrame:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/ex1.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{df}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:}    a   b   c   d  message
+         0  1   2   3   4    hello
+         1  5   6   7   8    world
+         2  9  10  11  12      foo
+\end{Verbatim}
+            
+    We could also have used \emph{read\_table}() and specified the
+delimiter:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}table}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/ex1.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}ipykernel\_launcher.py:1: FutureWarning: read\_table is deprecated, use read\_csv instead.
+  """Entry point for launching an IPython kernel.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:}    a   b   c   d  message
+         0  1   2   3   4    hello
+         1  5   6   7   8    world
+         2  9  10  11  12      foo
+\end{Verbatim}
+            
+    \begin{quote}
+Note that \emph{read\_table}() method is deprecated, we should use
+\emph{read\_csv}() instead.
+\end{quote}
+
+    A file will not always have a header row. Consider this file:
+
+    To read this file, we have a couple of options, we can allow pandas to
+specify the default column names or we can specify the names ourself:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/ex2.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:}    0   1   2   3       4
+         0  1   2   3   4   hello
+         1  5   6   7   8   world
+         2  9  10  11  12     foo
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/ex2.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{names}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{message}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:}    a   b   c   d message
+         0  1   2   3   4   hello
+         1  5   6   7   8   world
+         2  9  10  11  12     foo
+\end{Verbatim}
+            
+    Suppose we want the `message' column to be the index of the returned
+DataFrame. We can either indicate we want the column at index 4 or
+`message' using the \emph{index\_col} argument:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{names} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{message}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/ex2.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{names}\PY{o}{=}\PY{n}{names}\PY{p}{,} \PY{n}{index\PYZus{}col}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:}          a   b   c   d
+         message               
+          hello   1   2   3   4
+          world   5   6   7   8
+          foo     9  10  11  12
+\end{Verbatim}
+            
+    or
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/ex2.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{names}\PY{o}{=}\PY{n}{names}\PY{p}{,} \PY{n}{index\PYZus{}col}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{message}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:}          a   b   c   d
+         message               
+          hello   1   2   3   4
+          world   5   6   7   8
+          foo     9  10  11  12
+\end{Verbatim}
+            
+    In the event that we want to form a hierarchical index from multiple
+columns, we can pass a list of column numbers or names:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{parsed} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/ex3.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index\PYZus{}col}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{parsed}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:}            value1  value2
+         key1 key2                
+         one  a          1       2
+              b          3       4
+              c          5       6
+              d          7       8
+         two  a          9      10
+              b         11      12
+              c         13      14
+              d         15      16
+\end{Verbatim}
+            
+    Or
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/ex3.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index\PYZus{}col}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{key1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{key2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:}            value1  value2
+         key1 key2                
+         one  a          1       2
+              b          3       4
+              c          5       6
+              d          7       8
+         two  a          9      10
+              b         11      12
+              c         13      14
+              d         15      16
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/ext.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} [' A B   C\textbackslash{}n',
+          'aaa  -0.264438  -1.026059  -0.619500\textbackslash{}n',
+          'bbb  0.927272  0.302904  -0.032399\textbackslash{}n',
+          'ccc  -0.264273  -0.386314    -0.217601\textbackslash{}n',
+          'ddd  -0.871858  -0.348382  1.100491\textbackslash{}n']
+\end{Verbatim}
+            
+    从以上的输出可以看出，ext.txt文件中数据之间包含一个或多个空格，这时候可以在\emph{read\_table}()函数的参数\emph{sep}传入匹配一个或多个空格的正则表达式'\s+':
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{result} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}table}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/ext.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{s+}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}ipykernel\_launcher.py:1: FutureWarning: read\_table is deprecated, use read\_csv instead.
+  """Entry point for launching an IPython kernel.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{result}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:}             A         B         C
+         aaa -0.264438 -1.026059 -0.619500
+         bbb  0.927272  0.302904 -0.032399
+         ccc -0.264273 -0.386314 -0.217601
+         ddd -0.871858 -0.348382  1.100491
+\end{Verbatim}
+            
+    此外，有些数据中可能有一些无效的行，那么可以使用\emph{skiprows}跳过这些行：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/ex4.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:} ['\# hey!\textbackslash{}n',
+          'a,b,c,d,message\textbackslash{}n',
+          '\# just wanted to make things more difficult for you\textbackslash{}n',
+          '\# who reads CSV files with computers, anyway?\textbackslash{}n',
+          '1,2,3,4,hello\textbackslash{}n',
+          '5,6,7,8,world\textbackslash{}n',
+          '9,10,11,12,foo']
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/ex4.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{skiprows}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:}    a   b   c   d message
+         0  1   2   3   4   hello
+         1  5   6   7   8   world
+         2  9  10  11  12     foo
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/ex4.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{skiprows}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:}    a   b   c   d message
+         0  1   2   3   4   hello
+         1  5   6   7   8   world
+         2  9  10  11  12     foo
+\end{Verbatim}
+            
+    Missing data is usually eithor not present (empty string) or marked by
+some sentinel value (哨兵值). By default, pandas uses a set of commonly
+occurring sentinels, such as NA and NULL:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/ex5.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:} ['something,a,b,c,d,message\textbackslash{}n',
+          'one,1,2,3,4,NA\textbackslash{}n',
+          'two,5,6,,8,world\textbackslash{}n',
+          'three,9,10,11,12,foo']
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{result} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/ex5.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{result}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:}   something  a   b     c   d message
+         0       one  1   2   3.0   4     NaN
+         1       two  5   6   NaN   8   world
+         2     three  9  10  11.0  12     foo
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{n}{result}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:}    something      a      b      c      d  message
+         0      False  False  False  False  False     True
+         1      False  False  False   True  False    False
+         2      False  False  False  False  False    False
+\end{Verbatim}
+            
+    \emph{read\_csv}()的一个参数\emph{na\_values}可接受一个字符串序列用于说明哪些值术语缺失值：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{result} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/ex5.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{na\PYZus{}values}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NULL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{result}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:}   something  a   b     c   d message
+         0       one  1   2   3.0   4     NaN
+         1       two  5   6   NaN   8   world
+         2     three  9  10  11.0  12     foo
+\end{Verbatim}
+            
+    还可以用一个字典为每一列指定缺失值： \textgreater{}Different NA
+sentinels can be specified for each column in a dict.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{c+c1}{\PYZsh{} \PYZsq{}message\PYZsq{}这一列的缺失值哨兵是\PYZsq{}foo\PYZsq{}和\PYZsq{}NA\PYZsq{};}
+         \PY{c+c1}{\PYZsh{} \PYZsq{}something\PYZsq{}这一列的缺失值哨兵是\PYZsq{}two\PYZsq{}}
+         \PY{n}{sentinels} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{message}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{foo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{something}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{two}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/ex5.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{na\PYZus{}values}\PY{o}{=}\PY{n}{sentinels}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}41}]:}   something  a   b     c   d message
+         0       one  1   2   3.0   4     NaN
+         1       NaN  5   6   NaN   8   world
+         2     three  9  10  11.0  12     NaN
+\end{Verbatim}
+            
+    从上面的执行结果可以看出：\\
+已经将'message'这一列的缺失值哨兵是'foo'和'NA';\\
+`something'这一列的缺失值哨兵是'two'。
+
+    函数\emph{read\_csv}()和函数\emph{read\_table}()常用的参数如下：\\
+\includegraphics{attachment:image.png}\\
+\includegraphics{attachment:image.png}
+
+    \hypertarget{ux8bfbux53d6ux90e8ux5206ux6587ux672cux6587ux4ef6}{%
+\subsubsection{读取部分文本文件}\label{ux8bfbux53d6ux90e8ux5206ux6587ux672cux6587ux4ef6}}
+
+Reading Text Files in Pieces
+
+    当遇到大文件时，我们可能只想每次读取一部分小文件进行处理或者每次只读取较小的文件块进来：
+
+    Before we look at a large file, we make the pandas display setting more
+compact (紧凑的):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{options}\PY{o}{.}\PY{n}{display}\PY{o}{.}\PY{n}{max\PYZus{}rows} \PY{o}{=} \PY{l+m+mi}{10} \PY{c+c1}{\PYZsh{} 只显示10行数据}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{n}{result} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/ex6.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{n}{result}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}53}]:}            one       two     three      four      five key
+         0    -0.311751 -0.664187 -0.625109 -0.557133  0.776716   Q
+         1    -0.791881  1.421330 -0.255119  1.623128  0.156707   A
+         2     1.007681  0.666359  0.292274  0.541123  0.477363   F
+         3    -0.918624  0.168383 -0.396418 -1.438362  1.613293   T
+         4    -0.071876 -0.325441  0.165436  1.584977  1.024566   E
+         {\ldots}        {\ldots}       {\ldots}       {\ldots}       {\ldots}       {\ldots}  ..
+         9995 -1.331803  0.740650 -0.376655 -0.893378 -0.264872   W
+         9996 -0.138084 -0.398566 -2.139323 -0.067138  0.530703   T
+         9997  0.380273  0.775894  0.474533 -0.693687  0.923493   I
+         9998 -1.299136 -0.030664 -0.756900 -1.399551  1.181465   V
+         9999 -1.219521 -0.920930  0.032399 -0.650949  0.587994   V
+         
+         [10000 rows x 6 columns]
+\end{Verbatim}
+            
+    If we want only read a small number of rows (avoiding reading the entire
+file), specify that with \emph{nrows}:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{c+c1}{\PYZsh{} 读取ex6.csv的前5行}
+         \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/ex6.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{nrows}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}54}]:}         one       two     three      four      five key
+         0 -0.311751 -0.664187 -0.625109 -0.557133  0.776716   Q
+         1 -0.791881  1.421330 -0.255119  1.623128  0.156707   A
+         2  1.007681  0.666359  0.292274  0.541123  0.477363   F
+         3 -0.918624  0.168383 -0.396418 -1.438362  1.613293   T
+         4 -0.071876 -0.325441  0.165436  1.584977  1.024566   E
+\end{Verbatim}
+            
+    To read a file in pieces, we can specify the \emph{chunksize} options as
+a number of rows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{c+c1}{\PYZsh{} 通过指定chunksize=1000，每次read\PYZus{}csv()只会}
+         \PY{c+c1}{\PYZsh{} 读取1000行数据}
+         \PY{n}{chunker} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/ex6.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{chunksize}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{n}{chunker}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}56}]:} <pandas.io.parsers.TextFileReader at 0x24ba382bb38>
+\end{Verbatim}
+            
+    指定\emph{chunksize}参数时\emph{read\_csv}()返回的是一个TextParser对象，该对象可根据\emph{chunksize}的大小进行迭代。下面我们迭代chunker，统计\emph{key}列中每一个字母出现的次数：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{tot} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+         \PY{k}{for} \PY{n}{piece} \PY{o+ow}{in} \PY{n}{chunker}\PY{p}{:}
+             \PY{n}{tot} \PY{o}{=} \PY{n}{tot}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{piece}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{key}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{fill\PYZus{}value}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{n}{tot} \PY{o}{=} \PY{n}{tot}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{n}{tot}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{]}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}60}]:} T    423.0
+         A    414.0
+         H    409.0
+         K    396.0
+         B    395.0
+         O    394.0
+         I    392.0
+         G    390.0
+         R    389.0
+         W    388.0
+         dtype: float64
+\end{Verbatim}
+            
+    此外，TextParser还有\emph{get\_chunk}()方法用于读取任意大小的数据块。
+
+    \hypertarget{ux5c06ux6570ux636eux5199ux5230ux6587ux672cux683cux5f0f}{%
+\subsubsection{将数据写到文本格式}\label{ux5c06ux6570ux636eux5199ux5230ux6587ux672cux683cux5f0f}}
+
+Writing Data to Text Format
+
+    Data can be exported to a delimited format. Let's consider one of the
+CSV file read before:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/ex5.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{n}{data}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}62}]:}   something  a   b     c   d message
+         0       one  1   2   3.0   4     NaN
+         1       two  5   6   NaN   8   world
+         2     three  9  10  11.0  12     foo
+\end{Verbatim}
+            
+    Using DataFrame's \emph{to\_csv}() method, we can write the data out to
+a comma/separated file:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{n}{data}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/out.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/out.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}64}]:} [',something,a,b,c,d,message\textbackslash{}n',
+          '0,one,1,2,3.0,4,\textbackslash{}n',
+          '1,two,5,6,,8,world\textbackslash{}n',
+          '2,three,9,10,11.0,12,foo\textbackslash{}n']
+\end{Verbatim}
+            
+    Other delimiters can be used, of course (writing to sys.stdout so it
+print the result to the console):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{k+kn}{import} \PY{n+nn}{sys}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{n}{data}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{n}{sys}\PY{o}{.}\PY{n}{stdout}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{|}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+|something|a|b|c|d|message
+0|one|1|2|3.0|4|
+1|two|5|6||8|world
+2|three|9|10|11.0|12|foo
+
+    \end{Verbatim}
+
+    As we can see above, missing values appear as empty strings in the
+output. We might want to denote them as some other sentinel values:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{c+c1}{\PYZsh{} na\PYZus{}rep means NA replace}
+         \PY{n}{data}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{n}{sys}\PY{o}{.}\PY{n}{stdout}\PY{p}{,} \PY{n}{na\PYZus{}rep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Null}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+,something,a,b,c,d,message
+0,one,1,2,3.0,4,Null
+1,two,5,6,Null,8,world
+2,three,9,10,11.0,12,foo
+
+    \end{Verbatim}
+
+    As we can see above, if with no other options specified, both the row
+and column labels are written. Both of these can be disabled:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{n}{data}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{n}{sys}\PY{o}{.}\PY{n}{stdout}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+one,1,2,3.0,4,
+two,5,6,,8,world
+three,9,10,11.0,12,foo
+
+    \end{Verbatim}
+
+    We can also write only a subset of the columns, and in an order of our
+choosing:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{n}{data}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{n}{sys}\PY{o}{.}\PY{n}{stdout}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+d,a,b
+4,1,2
+8,5,6
+12,9,10
+
+    \end{Verbatim}
+
+    Series also has a \emph{to\_csv}() method:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{n}{dates} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{date\PYZus{}range}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{7/3/2019}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{periods}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{n}{dates}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}71}]:} DatetimeIndex(['2019-07-03', '2019-07-04', '2019-07-05', '2019-07-06',
+                        '2019-07-07', '2019-07-08', '2019-07-09', '2019-07-10',
+                        '2019-07-11', '2019-07-12'],
+                       dtype='datetime64[ns]', freq='D')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{n}{ts} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{n}{dates}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{n}{ts}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}73}]:} 2019-07-03    0
+         2019-07-04    1
+         2019-07-05    2
+         2019-07-06    3
+         2019-07-07    4
+         2019-07-08    5
+         2019-07-09    6
+         2019-07-10    7
+         2019-07-11    8
+         2019-07-12    9
+         Freq: D, dtype: int32
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}79}]:} \PY{c+c1}{\PYZsh{} 加header参数，抑制一些警告}
+         \PY{n}{ts}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/tseries.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}80}]:} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/tseries.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}80}]:} ['2019-07-03,0\textbackslash{}n',
+          '2019-07-04,1\textbackslash{}n',
+          '2019-07-05,2\textbackslash{}n',
+          '2019-07-06,3\textbackslash{}n',
+          '2019-07-07,4\textbackslash{}n',
+          '2019-07-08,5\textbackslash{}n',
+          '2019-07-09,6\textbackslash{}n',
+          '2019-07-10,7\textbackslash{}n',
+          '2019-07-11,8\textbackslash{}n',
+          '2019-07-12,9\textbackslash{}n']
+\end{Verbatim}
+            
+    \hypertarget{working-with-delimited-formats}{%
+\subsubsection{Working with Delimited
+Formats}\label{working-with-delimited-formats}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}81}]:} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/ex7.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}81}]:} ['"a","b","c"\textbackslash{}n', '"1","2","3"\textbackslash{}n', '"1","2","3"']
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}83}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/ex7.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}83}]:}    0  1  2
+         0  a  b  c
+         1  1  2  3
+         2  1  2  3
+\end{Verbatim}
+            
+    从上述\emph{pd.read\_csv}()的执行结果可以看出，每个值得双引号都被自动去除了，假如我们不想每个值得双引号的话，可以使用Python内置的csv模块进行读取：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}84}]:} \PY{k+kn}{import} \PY{n+nn}{csv}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}85}]:} \PY{n}{f} \PY{o}{=} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/ex7.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}86}]:} \PY{n}{reader} \PY{o}{=} \PY{n}{csv}\PY{o}{.}\PY{n}{reader}\PY{p}{(}\PY{n}{f}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}87}]:} \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{reader}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{line}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['a', 'b', 'c']
+['1', '2', '3']
+['1', '2', '3']
+
+    \end{Verbatim}
+
+    From there, it is up to you to do the wrangling necessary to put the
+data in the form that you need. Let's take this step by step. First, we
+read the file into a list of lines:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}88}]:} \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/ex7.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
+             \PY{n}{lines} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{csv}\PY{o}{.}\PY{n}{reader}\PY{p}{(}\PY{n}{f}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    Then, split the lines into the header line and the data lines:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}89}]:} \PY{n}{header}\PY{p}{,} \PY{n}{values} \PY{o}{=} \PY{n}{lines}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{lines}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}90}]:} \PY{n}{header}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}90}]:} ['a', 'b', 'c']
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}91}]:} \PY{n}{values}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}91}]:} [['1', '2', '3'], ['1', '2', '3']]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}93}]:} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{o}{*}\PY{n}{values}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}93}]:} [('1', '1'), ('2', '2'), ('3', '3')]
+\end{Verbatim}
+            
+    Then create a dictionary of data columns using a dictionary
+conprehension and the expression zip(*values), which transpose the rows
+to columns:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}94}]:} \PY{n}{data\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{n}{h}\PY{p}{:} \PY{n}{v} \PY{k}{for} \PY{n}{h}\PY{p}{,} \PY{n}{v} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{header}\PY{p}{,} \PY{n+nb}{zip}\PY{p}{(}\PY{o}{*}\PY{n}{values}\PY{p}{)}\PY{p}{)}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}95}]:} \PY{n}{data\PYZus{}dict}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}95}]:} \{'a': ('1', '1'), 'b': ('2', '2'), 'c': ('3', '3')\}
+\end{Verbatim}
+            
+    CSV文件支持许多不同的格式，我们可以通过继承csv.Dialect类自定义自己的CSV文件分割格式：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}96}]:} \PY{k}{class} \PY{n+nc}{my\PYZus{}dialect}\PY{p}{(}\PY{n}{csv}\PY{o}{.}\PY{n}{Dialect}\PY{p}{)}\PY{p}{:}
+             \PY{n}{lineterminator} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}  \PY{c+c1}{\PYZsh{} 行停止符}
+             \PY{n}{delimiter} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{;}\PY{l+s+s1}{\PYZsq{}}        \PY{c+c1}{\PYZsh{} 分隔符}
+             \PY{n}{quotechar} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZsq{}}        \PY{c+c1}{\PYZsh{} 引号}
+             \PY{n}{quoting} \PY{o}{=} \PY{n}{csv}\PY{o}{.}\PY{n}{QUOTE\PYZus{}MINIMAL}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} 不要执行该语句，仅仅做演示用}
+        \PY{n}{reader} \PY{o}{=} \PY{n}{csv}\PY{o}{.}\PY{n}{reader}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{n}{dialect}\PY{o}{=}\PY{n}{my\PYZus{}dialect}\PY{p}{)}
+\end{Verbatim}
+
+    当然，我们也可以不用定义csv.Dialect的子类而是通过参数传入分隔符：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} 不要执行该语句，仅仅做演示用}
+        \PY{n}{reader} \PY{o}{=} \PY{n}{csv}\PY{o}{.}\PY{n}{reader}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{n}{delimiter}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{|}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    csv.Dialect的一些属性如下：\\
+\includegraphics{attachment:image.png}\\
+\includegraphics{attachment:image.png}
+
+    \begin{quote}
+对于比较复杂的或者具有多个分隔符的文件，我们不能使用\emph{csv}模块，这种情况下，我们必须对文件的每一行进行分割，同时使用string类的\emph{split}()方法或者正则表达式方法（\emph{re.split()}）进行必要的清洗.
+\end{quote}
+
+    为了手动写入具有分隔符的文件，我们可以使用\emph{csv.writer}()方法，它接受一个已经打开的可写的文件对象，还有一个和\emph{csv.reader}()一样的\emph{dialect}格式参数：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}100}]:} \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/mydata.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{w}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
+              \PY{n}{writer} \PY{o}{=} \PY{n}{csv}\PY{o}{.}\PY{n}{writer}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{n}{dialect}\PY{o}{=}\PY{n}{my\PYZus{}dialect}\PY{p}{)}
+              \PY{n}{writer}\PY{o}{.}\PY{n}{writerow}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{one}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{two}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{three}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+              \PY{n}{writer}\PY{o}{.}\PY{n}{writerow}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+              \PY{n}{writer}\PY{o}{.}\PY{n}{writerow}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+              \PY{n}{writer}\PY{o}{.}\PY{n}{writerow}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{71}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{82}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{93}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+              
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}101}]:} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/mydata.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}101}]:} ['one;two;three\textbackslash{}n', '1;2;3\textbackslash{}n', '4;5;6\textbackslash{}n', '71;82;93\textbackslash{}n']
+\end{Verbatim}
+            
+    \hypertarget{json-data}{%
+\subsubsection{JSON Data}\label{json-data}}
+
+JSON (short for JavaScript Object Notation) has become one of the
+standard formats for sending data by HTTP request between web browsers
+and other applications. It is much more free-from data format than a
+tabular text form like CSV.
+
+    Here is am example:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}102}]:} \PY{n}{obj} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{name}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{: }\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Wes}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{,}
+          \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{places\PYZus{}lived}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{: [}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{United States}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{, }\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Spain}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{, }\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Germany}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{],}
+          \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pet}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{: null,}
+          \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{siblings}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{: [}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{name}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{: }\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Scott}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{, }\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{age}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{: 30, }\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pets}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{: [}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Zeus}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{, }\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Zuko}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{]\PYZcb{},}
+          \PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{name}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{: }\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Katie}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{, }\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{age}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{: 38,}
+          \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pets}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{: [}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sixes}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{, }\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Stache}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{, }\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cisco}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{]\PYZcb{}]}
+          \PY{l+s+s2}{\PYZcb{}}
+          \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+\end{Verbatim}
+
+    JSON中的基本数据类型是对象(其实就是字典dict)，数组(其实就是列表list)，字符串，数字，布尔值和空值。
+\textgreater{}重要：JSON中的键必须都是字符串!!!!
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}103}]:} \PY{c+c1}{\PYZsh{} Python内置了json模块用于读取JSON数据}
+          \PY{k+kn}{import} \PY{n+nn}{json}
+\end{Verbatim}
+
+    To convert a json string to Python form, use \emph{json.loads}().
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}109}]:} \PY{n}{result} \PY{o}{=} \PY{n}{json}\PY{o}{.}\PY{n}{loads}\PY{p}{(}\PY{n}{obj}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}110}]:} \PY{n}{result}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}110}]:} \{'name': 'Wes',
+           'places\_lived': ['United States', 'Spain', 'Germany'],
+           'pet': None,
+           'siblings': [\{'name': 'Scott', 'age': 30, 'pets': ['Zeus', 'Zuko']\},
+            \{'name': 'Katie', 'age': 38, 'pets': ['Sixes', 'Stache', 'Cisco']\}]\}
+\end{Verbatim}
+            
+    \emph{json.dumps}(), on the other hand, converts a Python object back to
+JSON:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}111}]:} \PY{n}{asjson} \PY{o}{=} \PY{n}{json}\PY{o}{.}\PY{n}{dumps}\PY{p}{(}\PY{n}{result}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}112}]:} \PY{n}{asjson}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}112}]:} '\{"name": "Wes", "places\_lived": ["United States", "Spain", "Germany"], "pet": null, "siblings": [\{"name": "Scott", "age": 30, "pets": ["Zeus", "Zuko"]\}, \{"name": "Katie", "age": 38, "pets": ["Sixes", "Stache", "Cisco"]\}]\}'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}113}]:} \PY{n+nb}{type}\PY{p}{(}\PY{n}{result}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}113}]:} dict
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}115}]:} \PY{n}{siblings} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{result}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{siblings}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}116}]:} \PY{n}{siblings}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}116}]:}     name  age
+          0  Scott   30
+          1  Katie   38
+\end{Verbatim}
+            
+    \emph{pandas.read\_json}()方法可以以指定的方式自动将JSON数据集转换成一个Series或者DataFrame，比如：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}117}]:} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/example.json}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}117}]:} ['[\{"a": 1, "b": 2, "c": 3\},\textbackslash{}n',
+           '\{"a": 4, "b": 5, "c": 6\},\textbackslash{}n',
+           '\{"a": 7, "b": 8, "c": 9\}]']
+\end{Verbatim}
+            
+    \emph{pandas.read\_json}()方法的默认参数是将每一个JSON对象当做表格中的一行数据：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}118}]:} \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}json}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/example.json}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}119}]:} \PY{n}{data}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}119}]:}    a  b  c
+          0  1  2  3
+          1  4  5  6
+          2  7  8  9
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}120}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{to\PYZus{}json}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{"a":\{"0":1,"1":4,"2":7\},"b":\{"0":2,"1":5,"2":8\},"c":\{"0":3,"1":6,"2":9\}\}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}121}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{data}\PY{o}{.}\PY{n}{to\PYZus{}json}\PY{p}{(}\PY{n}{orient}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{records}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[\{"a":1,"b":2,"c":3\},\{"a":4,"b":5,"c":6\},\{"a":7,"b":8,"c":9\}]
+
+    \end{Verbatim}
+
+    \hypertarget{xml-and-html-web-scraping}{%
+\subsubsection{XML and HTML: Web
+Scraping}\label{xml-and-html-web-scraping}}
+
+    Python has many libraries for reading and writing data in the ubiquitous
+HTML and XML files. Examples include \textbf{lxml}, \textbf{Beautiful
+Soup}, and \textbf{html5lib}. While \textbf{lxml} is comparatively much
+faster in general, the other libraries can better handle malformed HTML
+or XML files.
+
+    \emph{pandas.read\_html}()有很多参数，但是默认参数的情况下，该方法会去查找html文件中的
+
+标签，并尝试将它们转换成表格数据，其结果是一个包含DataFrame的列表:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}122}]:} \PY{n}{tables} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}html}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/fdic\PYZus{}failed\PYZus{}bank\PYZus{}list.html}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}123}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{tables}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}123}]:} 1
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}124}]:} \PY{n}{failures} \PY{o}{=}  \PY{n}{tables}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}125}]:} \PY{n}{failures}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}125}]:}                                            Bank Name        City  ST   CERT  \textbackslash{}
+          0                               The Enloe State Bank      Cooper  TX  10716   
+          1                Washington Federal Bank for Savings     Chicago  IL  30570   
+          2    The Farmers and Merchants State Bank of Argonia     Argonia  KS  17719   
+          3                                Fayette County Bank  Saint Elmo  IL   1802   
+          4  Guaranty Bank, (d/b/a BestBank in Georgia \& Mi{\ldots}   Milwaukee  WI  30003   
+          
+                           Acquiring Institution       Closing Date       Updated Date  
+          0                   Legend Bank, N. A.       May 31, 2019      June 18, 2019  
+          1                   Royal Savings Bank  December 15, 2017   February 1, 2019  
+          2                          Conway Bank   October 13, 2017  February 21, 2018  
+          3            United Fidelity Bank, fsb       May 26, 2017   January 29, 2019  
+          4  First-Citizens Bank \& Trust Company        May 5, 2017     March 22, 2018  
+\end{Verbatim}
+            
+    From here, we can do proceed to do some data cleaning and analysis, like
+computing the number of bank failures by year:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}126}]:} \PY{n}{close\PYZus{}timestamps} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{failures}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Closing Date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}128}]:} \PY{n}{close\PYZus{}timestamps}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}128}]:} 0    2019-05-31
+          1    2017-12-15
+          2    2017-10-13
+          3    2017-05-26
+          4    2017-05-05
+                  {\ldots}    
+          20   2015-01-23
+          21   2015-01-16
+          22   2014-12-19
+          23   2014-11-07
+          24   2014-10-24
+          Name: Closing Date, Length: 25, dtype: datetime64[ns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}127}]:} \PY{n}{close\PYZus{}timestamps}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{year}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}127}]:} 2015    8
+          2017    8
+          2016    5
+          2014    3
+          2019    1
+          Name: Closing Date, dtype: int64
+\end{Verbatim}
+            
+    \hypertarget{parsing-xml-with-lxml.objectify}{%
+\subsubsection{Parsing XML with
+lxml.objectify}\label{parsing-xml-with-lxml.objectify}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}130}]:} \PY{k+kn}{from} \PY{n+nn}{lxml} \PY{k}{import} \PY{n}{objectify}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}131}]:} \PY{n}{path} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/performance\PYZus{}mnr.xml}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}132}]:} \PY{n}{parsed} \PY{o}{=} \PY{n}{objectify}\PY{o}{.}\PY{n}{parse}\PY{p}{(}\PY{n+nb}{open}\PY{p}{(}\PY{n}{path}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}133}]:} \PY{n}{root} \PY{o}{=} \PY{n}{parsed}\PY{o}{.}\PY{n}{getroot}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} 获取根节点}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}136}]:} \PY{k+kn}{from} \PY{n+nn}{io} \PY{k}{import} \PY{n}{StringIO}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}137}]:} \PY{n}{tag} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZlt{}a href=}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{https://www.biying.org}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZgt{}biying\PYZlt{}/a\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}138}]:} \PY{n}{root} \PY{o}{=} \PY{n}{objectify}\PY{o}{.}\PY{n}{parse}\PY{p}{(}\PY{n}{StringIO}\PY{p}{(}\PY{n}{tag}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{getroot}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}140}]:} \PY{n}{root}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}140}]:} <Element a at 0x24ba65247c8>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}141}]:} \PY{n}{root}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{href}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}141}]:} 'https://www.biying.org'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}142}]:} \PY{n}{root}\PY{o}{.}\PY{n}{text}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}142}]:} 'biying'
+\end{Verbatim}
+            
+    \hypertarget{binary-data-formats}{%
+\subsubsection{Binary Data Formats}\label{binary-data-formats}}
+
+    One of the easiest way to store data (also known as serialization) in
+binary format is using Python built-in \textbf{pickle} serialization.
+pandas objects all have a \emph{to\_pickle}() method that writes the
+data to disk in pickle format:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}143}]:} \PY{n}{frame} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/ex1.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}144}]:} \PY{n}{frame}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}144}]:}    a   b   c   d  message
+          0  1   2   3   4    hello
+          1  5   6   7   8    world
+          2  9  10  11  12      foo
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}145}]:} \PY{n}{frame}\PY{o}{.}\PY{n}{to\PYZus{}pickle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/frame\PYZus{}pickle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    We can read any `pickle' object stored in file by using the built-in
+pickle directly, or even more conveniently using
+\emph{pandas.read\_pickle}():
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}146}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}pickle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/frame\PYZus{}pickle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}146}]:}    a   b   c   d  message
+          0  1   2   3   4    hello
+          1  5   6   7   8    world
+          2  9  10  11  12      foo
+\end{Verbatim}
+            
+    \begin{quote}
+pickle通常建议使用与短期的存储中，因为pickle没法保证随着时间的推移，其保存的数据格式是稳定的。在可能的情况下，我们必须保证数据的存储格式能够向后兼容（backward
+compatibility）。
+\end{quote}
+
+    \hypertarget{using-hdf5-format}{%
+\subsubsection{Using HDF5 Format}\label{using-hdf5-format}}
+
+    HDF5 is a well-regarded file format intenden for storing large
+quantities of scientific array data. The ``HDF'' stands for
+\emph{hierarchical data format}. HDF5 can be a good choice for working
+with very large datasets that don't fit into memory, as we can
+efficiently read and write small section of much larger arrays.
+
+    可以使用\textbf{PyTables}或者或者\textbf{h5py}库直接读取HDF5文件。\textbf{pandas}也提供了顶级的接口用于简化存储Series和DataFrame对象。\emph{pandas.HDFStore}()方法工作类似于字典(dict)：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}148}]:} \PY{n}{frame} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}149}]:} \PY{n}{store} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{HDFStore}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/mydata.h5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}importlib\textbackslash{}\_bootstrap.py:219: RuntimeWarning: numpy.ufunc size changed, may indicate binary incompatibility. Expected 192 from C header, got 216 from PyObject
+  return f(*args, **kwds)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}150}]:} \PY{n}{store}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{obj1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{frame}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}151}]:} \PY{n}{store}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{obj1\PYZus{}col}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{frame}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}152}]:} \PY{n}{store}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}152}]:} <class 'pandas.io.pytables.HDFStore'>
+          File path: ./examples/mydata.h5
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}153}]:} \PY{n}{store}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{obj1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}153}]:}            a
+          0  -0.548035
+          1  -0.710008
+          2  -1.331906
+          3   1.015062
+          4  -0.355029
+          ..       {\ldots}
+          95 -1.084802
+          96 -0.092428
+          97 -1.775375
+          98  2.008725
+          99 -0.257653
+          
+          [100 rows x 1 columns]
+\end{Verbatim}
+            
+    HDFStore supports two storage formats: `fix' and `table'. The latter is
+generally slower, but it supports query operations using a special
+syntax:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}154}]:} \PY{n}{store}\PY{o}{.}\PY{n}{put}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{obj2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{frame}\PY{p}{,} \PY{n+nb}{format}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{table}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}155}]:} \PY{n}{store}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{obj2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{where}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{index \PYZgt{}= 10 and index \PYZlt{}= 20}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}155}]:}            a
+          10 -0.000648
+          11  1.253861
+          12 -0.157897
+          13 -1.138644
+          14 -0.731594
+          ..       {\ldots}
+          16  1.355059
+          17  0.856581
+          18 -0.294098
+          19  1.970789
+          20  0.945458
+          
+          [11 rows x 1 columns]
+\end{Verbatim}
+            
+    \begin{quote}
+上面store的\emph{put}()和store{[}`obj2'{]}=frame是一样的结果，只不过就是该方法还允许设置一些参数如存储格式等。
+\end{quote}
+
+    The \emph{pandas.read\_hdf}() function gives us a shortcut to these
+tools:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}158}]:} \PY{n}{frame}\PY{o}{.}\PY{n}{to\PYZus{}hdf}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{./examples/mydata2.h5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{obj3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{format}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{table}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}160}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}hdf}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/mydata2.h5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{obj3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{where}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{index \PYZlt{}= 10}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}160}]:}            a
+          0  -0.548035
+          1  -0.710008
+          2  -1.331906
+          3   1.015062
+          4  -0.355029
+          ..       {\ldots}
+          6   0.132335
+          7  -0.287310
+          8   0.128023
+          9  -0.407593
+          10 -0.000648
+          
+          [11 rows x 1 columns]
+\end{Verbatim}
+            
+    \hypertarget{reading-microsoft-excel-files}{%
+\subsubsection{Reading Microsoft Excel
+Files}\label{reading-microsoft-excel-files}}
+
+    pandas also supports reading tabular data stored in Excel 2003 (and
+higher) files using either \textbf{ExcelFile} class or
+\emph{pandas.read\_excel}() function. Internally, these tools use the
+add-on packages \textbf{xlrd} and \textbf{openpyxl} to read XLS and XLSX
+files, respectively.
+
+    To use ExcelFile, create an instance by passing a path to an xls or xlsx
+file:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}168}]:} \PY{n}{path\PYZus{}base} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}163}]:} \PY{n}{xlsx} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{ExcelFile}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./examples/test.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    Data stored in a sheet can then be read into a DataFrame with parse:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}167}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{n}{xlsx}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sheet3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}167}]:}     0   1          2          3          4          5          6          7   \textbackslash{}
+          0   17  53 -11.365891 -11.652242 -12.048091 -12.541557 -13.097980 -13.739284   
+          1   17  52 -11.364234 -11.646589 -12.052842 -12.538041 -13.098351 -13.742386   
+          2   17  51 -11.370131 -11.657349 -12.048091 -12.540817 -13.098720 -13.740379   
+          3   17  50 -11.364417 -11.651693 -12.045170 -12.525095 -13.105573 -13.739830   
+          4   17  49 -11.367733 -11.646589 -12.052110 -12.539152 -13.094093 -13.751884   
+          ..  ..  ..        {\ldots}        {\ldots}        {\ldots}        {\ldots}        {\ldots}        {\ldots}   
+          12  17  41 -11.365154 -11.652787 -12.041155 -12.528053 -13.097795 -13.746770   
+          13  17  40 -11.365707 -11.657895 -12.051013 -12.532676 -13.092058 -13.744030   
+          14  17  39 -11.368103 -11.656984 -12.051013 -12.531935 -13.089468 -13.741291   
+          15  17  38 -11.369024 -11.662276 -12.050467 -12.534155 -13.082629 -13.756273   
+          16  17  37 -11.365891 -11.654065 -12.047178 -12.517706 -13.096498 -13.740196   
+          
+                     8          9          10         11  
+          0  -14.490947 -15.435276 -16.384909 -17.424860  
+          1  -14.485475 -15.449348 -16.386923 -17.427637  
+          2  -14.487480 -15.439479 -16.393703 -17.439686  
+          3  -14.487662 -15.442402 -16.383993 -17.419119  
+          4  -14.492771 -15.442766 -16.385824 -17.447666  
+          ..        {\ldots}        {\ldots}        {\ldots}        {\ldots}  
+          12 -14.486569 -15.452276 -16.382345 -17.434866  
+          13 -14.496239 -15.442766 -16.389854 -17.427082  
+          14 -14.488575 -15.439479 -16.378319 -17.437090  
+          15 -14.492042 -15.438199 -16.379051 -17.435791  
+          16 -14.488939 -15.450629 -16.393337 -17.440985  
+          
+          [17 rows x 12 columns]
+\end{Verbatim}
+            
+    If we are reading multiple sheets in a file, then it is faster to create
+the ExcelFile, but we can also simply pass the filename to
+\emph{pandas.read\_excel}():
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}173}]:} \PY{n}{frame} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{n}{path\PYZus{}base} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sheet3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}174}]:} \PY{n}{frame}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}174}]:}     0   1          2          3          4          5          6          7   \textbackslash{}
+          0   17  53 -11.365891 -11.652242 -12.048091 -12.541557 -13.097980 -13.739284   
+          1   17  52 -11.364234 -11.646589 -12.052842 -12.538041 -13.098351 -13.742386   
+          2   17  51 -11.370131 -11.657349 -12.048091 -12.540817 -13.098720 -13.740379   
+          3   17  50 -11.364417 -11.651693 -12.045170 -12.525095 -13.105573 -13.739830   
+          4   17  49 -11.367733 -11.646589 -12.052110 -12.539152 -13.094093 -13.751884   
+          ..  ..  ..        {\ldots}        {\ldots}        {\ldots}        {\ldots}        {\ldots}        {\ldots}   
+          12  17  41 -11.365154 -11.652787 -12.041155 -12.528053 -13.097795 -13.746770   
+          13  17  40 -11.365707 -11.657895 -12.051013 -12.532676 -13.092058 -13.744030   
+          14  17  39 -11.368103 -11.656984 -12.051013 -12.531935 -13.089468 -13.741291   
+          15  17  38 -11.369024 -11.662276 -12.050467 -12.534155 -13.082629 -13.756273   
+          16  17  37 -11.365891 -11.654065 -12.047178 -12.517706 -13.096498 -13.740196   
+          
+                     8          9          10         11  
+          0  -14.490947 -15.435276 -16.384909 -17.424860  
+          1  -14.485475 -15.449348 -16.386923 -17.427637  
+          2  -14.487480 -15.439479 -16.393703 -17.439686  
+          3  -14.487662 -15.442402 -16.383993 -17.419119  
+          4  -14.492771 -15.442766 -16.385824 -17.447666  
+          ..        {\ldots}        {\ldots}        {\ldots}        {\ldots}  
+          12 -14.486569 -15.452276 -16.382345 -17.434866  
+          13 -14.496239 -15.442766 -16.389854 -17.427082  
+          14 -14.488575 -15.439479 -16.378319 -17.437090  
+          15 -14.492042 -15.438199 -16.379051 -17.435791  
+          16 -14.488939 -15.450629 -16.393337 -17.440985  
+          
+          [17 rows x 12 columns]
+\end{Verbatim}
+            
+    To write pandas data to Excel format, we must first create a
+ExcelWriter, then write data to it using pandas objects'
+\emph{to\_excel}():
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}175}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}176}]:} \PY{n}{df}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}176}]:}     0   1   2   3
+          0  68  18  79   3
+          1  29  75  68  40
+          2  14  84  36  69
+          3  54  53  15  70
+          4  44   2  10  48
+          5  82  93   9  11
+          6  30  39  75  19
+          7  22  30  40  88
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}177}]:} \PY{n}{writer} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{ExcelWriter}\PY{p}{(}\PY{n}{path\PYZus{}base} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{df.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}178}]:} \PY{n}{df}\PY{o}{.}\PY{n}{to\PYZus{}excel}\PY{p}{(}\PY{n}{writer}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{df}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}179}]:} \PY{n}{writer}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} must call save() method}
+\end{Verbatim}
+
+    We can also pass a file path to \emph{pandas.to\_excel}() and avoid the
+ExcelWriter:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}180}]:} \PY{n}{df}\PY{o}{.}\PY{n}{to\PYZus{}excel}\PY{p}{(}\PY{n}{path\PYZus{}base} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{df2.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \hypertarget{interacting-with-web-api}{%
+\subsubsection{Interacting with Web
+API}\label{interacting-with-web-api}}
+
+    Many websites have public APIs providing data feeds via JSON or some
+other format. There are a number of ways to access these APIs from
+Python; one easy-to-use method that I recommend is the \textbf{requests}
+package.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}181}]:} \PY{k+kn}{import} \PY{n+nn}{requests}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}182}]:} \PY{n}{url} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://api.github.com/repos/pandas\PYZhy{}dev/pandas/issues}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}183}]:} \PY{n}{resp} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{url}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}185}]:} \PY{n}{resp}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}185}]:} <Response [200]>
+\end{Verbatim}
+            
+    The Response objects' \emph{json}() method will return a dictionary
+containing JSON parsed into native python objects:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}186}]:} \PY{n}{data} \PY{o}{=} \PY{n}{resp}\PY{o}{.}\PY{n}{json}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}189}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}189}]:} 30
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}193}]:} \PY{n}{data}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{milestone}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}193}]:} \{'url': 'https://api.github.com/repos/pandas-dev/pandas/milestones/61',
+           'html\_url': 'https://github.com/pandas-dev/pandas/milestone/61',
+           'labels\_url': 'https://api.github.com/repos/pandas-dev/pandas/milestones/61/labels',
+           'id': 3759483,
+           'node\_id': 'MDk6TWlsZXN0b25lMzc1OTQ4Mw==',
+           'number': 61,
+           'title': '0.25.0',
+           'description': '',
+           'creator': \{'login': 'jreback',
+            'id': 953992,
+            'node\_id': 'MDQ6VXNlcjk1Mzk5Mg==',
+            'avatar\_url': 'https://avatars2.githubusercontent.com/u/953992?v=4',
+            'gravatar\_id': '',
+            'url': 'https://api.github.com/users/jreback',
+            'html\_url': 'https://github.com/jreback',
+            'followers\_url': 'https://api.github.com/users/jreback/followers',
+            'following\_url': 'https://api.github.com/users/jreback/following\{/other\_user\}',
+            'gists\_url': 'https://api.github.com/users/jreback/gists\{/gist\_id\}',
+            'starred\_url': 'https://api.github.com/users/jreback/starred\{/owner\}\{/repo\}',
+            'subscriptions\_url': 'https://api.github.com/users/jreback/subscriptions',
+            'organizations\_url': 'https://api.github.com/users/jreback/orgs',
+            'repos\_url': 'https://api.github.com/users/jreback/repos',
+            'events\_url': 'https://api.github.com/users/jreback/events\{/privacy\}',
+            'received\_events\_url': 'https://api.github.com/users/jreback/received\_events',
+            'type': 'User',
+            'site\_admin': False\},
+           'open\_issues': 24,
+           'closed\_issues': 1131,
+           'state': 'open',
+           'created\_at': '2018-10-23T02:34:15Z',
+           'updated\_at': '2019-07-03T12:14:44Z',
+           'due\_on': '2019-07-01T07:00:00Z',
+           'closed\_at': None\}
+\end{Verbatim}
+            
+    With a bit of elbow grease (费力的工作), we can create some high-level
+interfaces to common web APIs that return DataFrame objects for easy
+analysis.
+
+    \hypertarget{interacting-with-databases}{%
+\subsubsection{Interacting with
+Databases}\label{interacting-with-databases}}
+
+    Loading data from SQL into a DataFrame is fairly straightforward, and
+pandas has some functions to simplify the process. As a example, I'll
+create a SQLite database using Python's built-in \textbf{sqlite3}
+driver:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}194}]:} \PY{k+kn}{import} \PY{n+nn}{sqlite3}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}195}]:} \PY{n}{query} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+s2}{create table tb\PYZus{}test}
+          \PY{l+s+s2}{  (}
+          \PY{l+s+s2}{  a varchar(20),}
+          \PY{l+s+s2}{  b varchar(20),}
+          \PY{l+s+s2}{  c real,}
+          \PY{l+s+s2}{  d integer}
+          \PY{l+s+s2}{  }
+          \PY{l+s+s2}{  );}
+          \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}196}]:} \PY{c+c1}{\PYZsh{} 创建一个数据库mydata.sqlite}
+          \PY{n}{con} \PY{o}{=} \PY{n}{sqlite3}\PY{o}{.}\PY{n}{connect}\PY{p}{(}\PY{n}{path\PYZus{}base} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mydata.sqlite}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}197}]:} \PY{c+c1}{\PYZsh{} 执行SQL语句}
+          \PY{n}{con}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{n}{query}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}197}]:} <sqlite3.Cursor at 0x24ba91df2d0>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}198}]:} \PY{c+c1}{\PYZsh{} 提交更改}
+          \PY{n}{con}\PY{o}{.}\PY{n}{commit}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    Then insert a few rows of data:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}199}]:} \PY{n}{data} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Atlanta}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Georgia}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{1.25}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{,}
+          \PY{o}{.}\PY{o}{.}\PY{o}{.}\PY{o}{.}\PY{o}{.}\PY{p}{:} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tallahassee}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Florida}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{2.6}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,}
+          \PY{o}{.}\PY{o}{.}\PY{o}{.}\PY{o}{.}\PY{o}{.}\PY{p}{:} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sacramento}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{California}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{1.7}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}200}]:} \PY{c+c1}{\PYZsh{} ?表示占位符}
+          \PY{n}{stmt} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{insert into tb\PYZus{}test values(?, ?, ?, ?)}\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}201}]:} \PY{c+c1}{\PYZsh{} 执行多次，即多次执行插入语句}
+          \PY{n}{con}\PY{o}{.}\PY{n}{executemany}\PY{p}{(}\PY{n}{stmt}\PY{p}{,} \PY{n}{data}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}201}]:} <sqlite3.Cursor at 0x24ba91df420>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}202}]:} \PY{c+c1}{\PYZsh{} 提交更改}
+          \PY{n}{con}\PY{o}{.}\PY{n}{commit}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    Most Python SQL drivers (PyODBC, psycopg2, MySQLdb, pymssql, etc) return
+a list of tuples when selecting data fram table:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}203}]:} \PY{n}{cusor} \PY{o}{=} \PY{n}{con}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{select * from tb\PYZus{}test;}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}204}]:} \PY{n}{rows} \PY{o}{=} \PY{n}{cusor}\PY{o}{.}\PY{n}{fetchall}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}205}]:} \PY{n}{rows}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}205}]:} [('Atlanta', 'Georgia', 1.25, 6),
+           ('Tallahassee', 'Florida', 2.6, 3),
+           ('Sacramento', 'California', 1.7, 5)]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}206}]:} \PY{n}{cusor}\PY{o}{.}\PY{n}{description}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}206}]:} (('a', None, None, None, None, None, None),
+           ('b', None, None, None, None, None, None),
+           ('c', None, None, None, None, None, None),
+           ('d', None, None, None, None, None, None))
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}207}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{rows}\PY{p}{,} \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{cusor}\PY{o}{.}\PY{n}{description}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}207}]:}              a           b     c  d
+          0      Atlanta     Georgia  1.25  6
+          1  Tallahassee     Florida  2.60  3
+          2   Sacramento  California  1.70  5
+\end{Verbatim}
+            
+    The \textbf{SQLAlchemy} project is a popular Python SQL toolkit that
+abstracts away many of the common differences between SQL databases.
+pandas has \emph{read\_sql}() method that enables us to read data easily
+from a general SQLAlchemy connection. Here, we'll connect to a MySQL
+database with SQLAlchemy and read data from the table created before:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}208}]:} \PY{k+kn}{import} \PY{n+nn}{sqlalchemy} \PY{k}{as} \PY{n+nn}{sqla}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}215}]:} \PY{n}{db} \PY{o}{=} \PY{n}{sqla}\PY{o}{.}\PY{n}{create\PYZus{}engine}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mysql+pymysql://root:2015201315@localhost:3306/db\PYZus{}rohdeschwarzesrp\PYZus{}work}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                                  \PY{n}{echo}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{quote}
+说明：create\_engine(``mysql+pymysql://root:2015201315@localhost:3306/db\_rohdeschwarzesrp\_work'',echo=True)\\
+``mysql+pymysql://root:2015201315@localhost:3306/db\_rohdeschwarzesrp\_work''表示``数据库+数据库驱动://用户名:用户密码@主机:端口/数据库名''；\\
+echo=True表示开启调试模式,执行数据库操作时会回显SQL语句的执行情况。
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}216}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}sql}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{select * from tb\PYZus{}esrp\PYZus{}2019\PYZus{}03\PYZus{}01\PYZus{}15\PYZus{}06\PYZus{}27}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                     \PY{n}{db}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}216}]:}          ID   X   Y  Z                                              FDATA
+          0     34997  10   7  0  [84.242828369140625,68.662445068359375,69.3799{\ldots}
+          1     34998  10   8  0  [103.77669525146484,67.675567626953125,72.5693{\ldots}
+          2     34999  10   9  0  [98.51885986328125,69.135581970214844,67.95497{\ldots}
+          3     35000  10  10  0  [99.857666015625,68.413177490234375,69.7382202{\ldots}
+          4     35001  10  11  0  [101.33040618896484,68.914802551269531,67.6216{\ldots}
+          {\ldots}     {\ldots}  ..  .. ..                                                {\ldots}
+          1979  36976  73  11  0  [101.64801025390625,68.587387084960938,71.5124{\ldots}
+          1980  36977  73  10  0  [101.52200317382812,69.431022644042969,68.9145{\ldots}
+          1981  36978  73   9  0  [101.53518676757812,68.680587768554687,71.2132{\ldots}
+          1982  36979  73   8  0  [101.14675903320312,69.554557800292969,68.8946{\ldots}
+          1983  36980  73   7  0  [101.58643341064453,68.435829162597656,69.8215{\ldots}
+          
+          [1984 rows x 5 columns]
+\end{Verbatim}
+            
+    本章完结!
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

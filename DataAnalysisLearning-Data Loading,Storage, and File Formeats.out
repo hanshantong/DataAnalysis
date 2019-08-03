@@ -1,0 +1,12 @@
+\BOOKMARK [3][-]{subsubsection.0.0.1}{以文本形式读写数据}{}% 1
+\BOOKMARK [3][-]{subsubsection.0.0.2}{读取部分文本文件}{}% 2
+\BOOKMARK [3][-]{subsubsection.0.0.3}{将数据写到文本格式}{}% 3
+\BOOKMARK [3][-]{subsubsection.0.0.4}{Working\040with\040Delimited\040Formats}{}% 4
+\BOOKMARK [3][-]{subsubsection.0.0.5}{JSON\040Data}{}% 5
+\BOOKMARK [3][-]{subsubsection.0.0.6}{XML\040and\040HTML:\040Web\040Scraping}{}% 6
+\BOOKMARK [3][-]{subsubsection.0.0.7}{Parsing\040XML\040with\040lxml.objectify}{}% 7
+\BOOKMARK [3][-]{subsubsection.0.0.8}{Binary\040Data\040Formats}{}% 8
+\BOOKMARK [3][-]{subsubsection.0.0.9}{Using\040HDF5\040Format}{}% 9
+\BOOKMARK [3][-]{subsubsection.0.0.10}{Reading\040Microsoft\040Excel\040Files}{}% 10
+\BOOKMARK [3][-]{subsubsection.0.0.11}{Interacting\040with\040Web\040API}{}% 11
+\BOOKMARK [3][-]{subsubsection.0.0.12}{Interacting\040with\040Databases}{}% 12
